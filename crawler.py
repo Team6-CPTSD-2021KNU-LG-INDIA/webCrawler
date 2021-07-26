@@ -1,16 +1,19 @@
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, ResultSet
+from selenium import webdriver
 import requests
 import json
+import time
 from collections import OrderedDict
 import importlib
 
 knuSchedule = 'http://www.knu.ac.kr/wbbs/wbbs/user/yearSchedule/indexPopup.action?menu_idx=43'
+olympicSchedule = 'https://focus.daum.net/ch/og2020/result'
 
 # keyword 모듈에서 검색어와 가장 유사한 크롤링 리스트의 키워드를 반환 // 모듈
 # 현재 test 목적으로 knu 학사일정 등록
 def getKeyword():
-    return "knu"
+    return "olympic"
 
 # JSON 파일 생성. 추후 JSON 데이터를 서버에서 바로 전송할 예정
 def toJson(resultSet):
@@ -24,18 +27,31 @@ def loadModule(module_name):
 
 
 def Crawling(URL):
-    source = requests.get(URL)
-    if source.status_code == 200:
-        soup = BeautifulSoup(source.text, 'html.parser')
+    # request를 이용한 html 문서 get. 동적으로 생성되는 data는 받아올수 없어 비활성화
+    # source = requests.get(URL)
 
-        # 학사 일정의 각 일자
-        
-        crawledData = loadModule(getKeyword()).scraping(soup)
+    # selenium 설정
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--single-process")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument('ignore-certificate-errors')
 
-        toJson(crawledData)
+    # Chrome driver setting
+    driver = webdriver.Chrome('./chromedriver', options=chrome_options)
+    driver.get(URL)
+    time.sleep(1)
 
-    else:
-        print(source.status_code + " Bad request!")
+
+    source = driver.page_source
+    soup = BeautifulSoup(source, 'html.parser')
+    
+    print("toCrawl")
+    crawledData = loadModule(getKeyword()).scraping(soup)
+
+    toJson(crawledData)
 
 
-Crawling(knuSchedule)
+
+Crawling(olympicSchedule)
