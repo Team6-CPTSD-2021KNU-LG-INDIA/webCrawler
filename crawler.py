@@ -7,6 +7,7 @@ import time
 from collections import OrderedDict
 import importlib
 
+# function that returns keywords similar to the search term
 knuSchedule = 'http://www.knu.ac.kr/wbbs/wbbs/user/yearSchedule/indexPopup.action?menu_idx=43'
 olympicSchedule = 'https://focus.daum.net/ch/og2020/result'
 
