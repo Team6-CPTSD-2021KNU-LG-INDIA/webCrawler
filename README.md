@@ -9,7 +9,7 @@ develop python web crawling services
 > python -m venv virtual environment name(가상환경이름)  
 
 2. activate python virtual env  
-> virtual environment name(가상환경이름)\Scripts\activate.bat  
+> source virtual environment name(가상환경이름)/bin/activate
 
 3. install python package pip
 > pip install -r requirements.txt
