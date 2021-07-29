@@ -16,7 +16,7 @@ olympicSchedule = 'https://focus.daum.net/ch/og2020/result'
 # keyword 모듈에서 검색어와 가장 유사한 크롤링 리스트의 키워드를 반환 // 모듈
 # 현재 test 목적으로 knu 학사일정 등록
 def getNatualLanguage():
-    return "find olympic schedule"
+    return "경북대학교 일정을 찾아 주세요"
 
 def matching(input):
     data = pd.read_csv('urlSet.csv', low_memory=False)
