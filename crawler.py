@@ -28,6 +28,8 @@ def matching(input):
 def toJson(resultSet):
     with open('savedJson.json', 'w', encoding='utf-8') as file:
         json.dump(resultSet, file, ensure_ascii=False, indent='\t')
+    file.close()
+    return json.dumps(resultSet, ensure_ascii=False, indent='\t')
 
 # 동적 모듈 import. 다수의 커스텀 크롤링 모듈을 동적으로 import하기 위한 함수
 def loadModule(module_name):
@@ -63,9 +65,11 @@ def Crawling(URL, keywords):
     print("toCrawl")
     crawledData = loadModule(keywords).scraping(soup)
 
-    toJson(crawledData)
+    return toJson(crawledData)
 
+def scripts(NL):
+    keywords = getKeyword(NL)
+    url = matching(keywords)
+    return Crawling(url, keywords)
 
-keywords = getKeyword(getNatualLanguage())
-url = matching(keywords)
-Crawling(url, keywords)
+print(scripts("find knu schedules"))
