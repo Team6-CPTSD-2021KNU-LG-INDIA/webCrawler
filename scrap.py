@@ -1,23 +1,16 @@
-from flask import request
+from flask import Flask, request
 from flask_restx import Resource, Api, Namespace
 import crawler
 
-api = Namespace('scrap')
+Scrap = Namespace('Scrap')
+@Scrap.route('/')
+class ScrapWelcome(Resource):
+    def get(self):
+        scrap = ""
+        
+        scrap = request.args.get('NL','knu')
+        
+        if crawler.scripts(scrap) != None:
+            print('OK')
 
-@api.route('/')
-def welcome():
-    return "Please input your interest schedule"
-
-@api.route('/scrap')
-def post(self):
-    scrap = ""
-    
-    scrap = request.json.get('data')
-    
-    return crawler.scripts(scrap)
-
-
-@api.route('/scrap/<str:NL>')
-def get(self, id):
-    return {
-    }
+        return crawler.scripts(scrap)
