@@ -14,7 +14,7 @@ def scraping(soup):
     scheduleDict = {}
 
     for item in wholeData:
-        date = item.find('em').text
+        time = item.find('em').text
         content = item.find('strong').text
 
         playerlist = ""
@@ -24,7 +24,7 @@ def scraping(soup):
             playerlist = playerlist+" "+temp
         # print(playerlist)
 
-        scheduleDict[count] = {"date": date, "content":content, "players":playerlist}
+        scheduleDict[count] = {"time":  time, "content":content, "players":playerlist}
         # print(scheduleDict[count])
         count = count + 1
 
@@ -33,5 +33,5 @@ def scraping(soup):
     return scheduleDict
 
 
-testB = BeautifulSoup();
+testB = BeautifulSoup()
 # testB.find_previous

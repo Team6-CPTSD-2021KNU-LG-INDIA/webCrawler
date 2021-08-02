@@ -51,8 +51,7 @@ def Crawling(URL, keywords):
     chrome_options.add_argument("--headless")
 
     # Chrome driver setting
-    PATH = '/mnt/c/Users/Home/Crawler/chromedriver'
-    driver = webdriver.Chrome(PATH, options=chrome_options)
+    driver = webdriver.Chrome('./chromedriver', options=chrome_options)
     driver.get(URL)
     time.sleep(1)
 
