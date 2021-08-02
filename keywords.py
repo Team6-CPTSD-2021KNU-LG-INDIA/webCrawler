@@ -40,7 +40,8 @@ def getKeyword(searchWord):
     # print(sim_scores)
 
     sim_scores = sim_scores[1:]
-    # print(sim_scores)
+    print(sim_scores)
+    
     keyword_indices = [i[0] for i in sim_scores]
     # print(keyword_indices)
 
