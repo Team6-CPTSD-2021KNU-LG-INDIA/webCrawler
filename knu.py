@@ -1,3 +1,4 @@
+import datetime
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, ResultSet
 import requests
@@ -14,8 +15,9 @@ def scraping(soup):
     for item in eachContentsWithChild:
         # 자식 태그 평문
         # print(item.next_element.text)
+        now = datetime.datetime.now()
 
-        date = item.next_element.text
+        date = str(now.year) + "-" + item.next_element.text[:-3].replace('.', '-')
 
         # 자식 태그의 제거
         item.next_element.extract()
@@ -23,8 +25,8 @@ def scraping(soup):
         # 자식 태그를 제거한 결과의 평문만 가져와서 표시
         # print(item.text)
 
-        content = item.text
-        scheduleDict[count] = {"date": date, "content": content}
+        title = item.text
+        scheduleDict[count] = {"date": date, "title": title}
         count = count + 1
 
     return scheduleDict

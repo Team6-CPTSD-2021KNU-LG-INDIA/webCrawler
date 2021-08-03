@@ -1,3 +1,4 @@
+import datetime
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, ResultSet
 import requests
@@ -12,19 +13,20 @@ def scraping(soup):
     count = 1
     # to save each schedules and zip to dictionary
     scheduleDict = {}
-
     for item in wholeData:
-        date = item.find('em').text
-        content = item.find('strong').text
+        today = datetime.datetime.now()
+        date = today.strftime("%Y-%m-%d")
+        time = item.find('em').text
+        title = item.find('strong').text
 
-        playerlist = ""
+        contents = ""
         players = item.select('span.tit_teaminfo')
         for player in players:
             temp = player.text
-            playerlist = playerlist+" "+temp
+            contents = contents+" "+temp
         # print(playerlist)
 
-        scheduleDict[count] = {"date": date, "content":content, "players":playerlist}
+        scheduleDict[count] = {"date":date, "time": time, "title":title, "contents":contents}
         # print(scheduleDict[count])
         count = count + 1
 

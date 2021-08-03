@@ -9,8 +9,9 @@ class ScrapWelcome(Resource):
         scrap = ""
         
         scrap = request.args.get('NL','knu')
+        data = crawler.scripts(scrap)
         
-        if crawler.scripts(scrap) != None:
+        if  data != None:
             print('OK')
 
-        return crawler.scripts(scrap)
+        return data
