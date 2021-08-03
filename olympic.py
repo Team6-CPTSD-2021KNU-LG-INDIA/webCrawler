@@ -35,5 +35,5 @@ def scraping(soup):
     return scheduleDict
 
 
-testB = BeautifulSoup();
+testB = BeautifulSoup()
 # testB.find_previous
